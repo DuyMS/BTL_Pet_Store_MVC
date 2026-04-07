@@ -1,8 +1,40 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutPetcarehub.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2><span style="background:#2f5cc7;color:#fff;padding:8px 16px;display:inline-block;">Affordable Packages</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 ftco-animate">
+                <div class="block-7">
+                    <div class="img" style="background-image: url('@Url.Content("~/LayoutPetcare/images/pricing-1.jpg")'); height: 345px; background-size: cover; background-position: center;"></div>
+                    <div class="text-center p-4">
+                        <span class="excerpt d-block" style="color:#00b050;font-weight:600;">PERSONAL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="block-7">
+                    <div class="img" style="background-image: url('@Url.Content("~/LayoutPetcare/images/pricing-2.jpg")'); height: 345px; background-size: cover; background-position: center;"></div>
+                    <div class="text-center p-4">
+                        <span class="excerpt d-block" style="color:#00b050;font-weight:600;">BUSINESS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="block-7">
+                    <div class="img" style="background-image: url('@Url.Content("~/LayoutPetcare/images/pricing-3.jpg")'); height: 345px; background-size: cover; background-position: center;"></div>
+                    <div class="text-center p-4">
+                        <span class="excerpt d-block" style="color:#00b050;font-weight:600;">ULTIMATE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

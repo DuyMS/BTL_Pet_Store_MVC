@@ -15,4 +15,20 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\LayoutPetcare\css\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\css\css\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\fonts\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\fonts\flaticon\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\images\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\js\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\scss\.DS_Store" />
+    <None Include="wwwroot\LayoutPetcare\scss\bootstrap\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\productimages\" />
+  </ItemGroup>
+
 </Project>
