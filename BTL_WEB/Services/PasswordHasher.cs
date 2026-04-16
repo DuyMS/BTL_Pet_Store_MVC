@@ -5,6 +5,11 @@ namespace BTL_WEB.Services;
 
 public class PasswordHasher : IPasswordHasher
 {
+    public string Hash(string password)
+    {
+        return ComputeSha256Hex(password);
+    }
+
     public bool Verify(string inputPassword, string storedPassword)
     {
         if (string.Equals(inputPassword, storedPassword, StringComparison.Ordinal))

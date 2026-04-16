@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +28,87 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.app-page-hero.hero-wrap.hero-wrap-2 {
+  height: 260px;
+  background-position: center center;
+}
+
+.app-page-hero.hero-wrap.hero-wrap-2 .slider-text {
+  height: 260px;
+}
+
+.app-page-hero .breadcrumbs,
+.app-page-hero .bread {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+}
+
+.app-auth-section.ftco-section {
+  padding: 4em 0;
+  min-height: 420px;
+}
+
+.app-auth-section .block-7 {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+  padding: 4em 0;
+}
+
+.auth-page {
+  min-height: calc(100vh - 180px);
+  padding: 72px 0;
+  background: #f8f9fa;
+}
+
+.auth-card {
+  width: min(100%, 560px);
+  margin: 0 auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.1);
+}
+
+.auth-card-wide {
+  width: min(100%, 760px);
+}
+
+.auth-card h1 {
+  margin-bottom: 24px;
+  color: #222;
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.auth-card .form-control {
+  height: 52px;
+}
+
+.auth-card .form-check-input {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 767.98px) {
+  .app-page-hero.hero-wrap.hero-wrap-2,
+  .app-page-hero.hero-wrap.hero-wrap-2 .slider-text {
+    height: 220px;
+  }
+
+  .app-auth-section.ftco-section {
+    padding: 3em 0;
+  }
+
+  .auth-page {
+    padding: 40px 0;
+  }
+
+  .auth-card {
+    padding: 28px 20px;
+  }
 }

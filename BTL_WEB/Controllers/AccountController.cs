@@ -34,6 +34,74 @@ public class AccountController : Controller
         return View(new LoginViewModel { ReturnUrl = returnUrl });
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult Register()
+    {
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToDashboardByRole();
+        }
+
+        return View(new RegisterViewModel());
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Register(RegisterViewModel model)
+    {
+        model.Username = model.Username.Trim();
+        model.FullName = model.FullName.Trim();
+        model.Email = model.Email.Trim();
+        model.Phone = model.Phone?.Trim();
+
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var normalizedUsername = model.Username.ToLower();
+        var normalizedEmail = model.Email.ToLower();
+
+        if (await _context.Users.AnyAsync(x => x.Username.ToLower() == normalizedUsername))
+        {
+            ModelState.AddModelError(nameof(model.Username), "Ten dang nhap da ton tai.");
+            return View(model);
+        }
+
+        if (await _context.Users.AnyAsync(x => x.Email.ToLower() == normalizedEmail))
+        {
+            ModelState.AddModelError(nameof(model.Email), "Email da duoc su dung.");
+            return View(model);
+        }
+
+        var customerRole = await _context.Roles.FirstOrDefaultAsync(x => x.RoleName == RoleNames.Customer);
+        if (customerRole is null)
+        {
+            ModelState.AddModelError(string.Empty, "Chua co role Customer trong database.");
+            return View(model);
+        }
+
+        var user = new User
+        {
+            Username = model.Username,
+            PasswordHash = _passwordHasher.Hash(model.Password),
+            FullName = model.FullName,
+            Email = model.Email,
+            Phone = model.Phone,
+            RoleId = customerRole.RoleId,
+            CreatedAt = DateTime.Now,
+            Status = "Active"
+        };
+
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+
+        TempData["Success"] = "Dang ky thanh cong. Ban co the dang nhap ngay bay gio.";
+        return RedirectToAction(nameof(Login));
+    }
+
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]

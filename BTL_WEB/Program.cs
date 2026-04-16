@@ -3,14 +3,21 @@ using BTL_WEB.Models;
 using BTL_WEB.Resources;
 using BTL_WEB.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 builder.Services.AddDbContext<PetCareHubContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PetCareHubConnection")));
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "App_Data", "DataProtectionKeys")));
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();

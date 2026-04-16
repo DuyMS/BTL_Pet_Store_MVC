@@ -1,8 +1,85 @@
-﻿@{
+@using BTL_WEB.Models
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutPetcarehub.cshtml";
+
+    var services = ViewBag.FeaturedServices as List<Service> ?? new List<Service>();
+    var pets = ViewBag.FeaturedPets as List<Pet> ?? new List<Pet>();
+    var packageImages = new[] { "pricing-1.jpg", "pricing-2.jpg", "pricing-3.jpg" };
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="ftco-section bg-light" id="pricing">
+    <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2><span style="background:#2f5cc7;color:#fff;padding:8px 16px;display:inline-block;">Dịch vụ nổi bật</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            @if (services.Any())
+            {
+                @for (var i = 0; i < services.Count; i++)
+                {
+                    var service = services[i];
+                    var image = packageImages[i % packageImages.Length];
+                    <div class="col-md-4 ftco-animate">
+                        <div class="block-7">
+                            <div class="img" style="background-image: url('@Url.Content($"~/LayoutPetcare/images/{image}")'); height: 345px; background-size: cover; background-position: center;"></div>
+                            <div class="text-center p-4">
+                                <span class="excerpt d-block" style="color:#00b050;font-weight:600;">@service.ServiceName</span>
+                                <span class="price d-block">@service.Price.ToString("N0") đ</span>
+                                <p>@(service.Description ?? service.Category.CategoryName)</p>
+                                <a class="btn btn-primary" asp-controller="Services" asp-action="Details" asp-route-id="@service.ServiceId">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>Chưa có dịch vụ active trong database.</p>
+                    <a class="btn btn-primary" asp-controller="Services" asp-action="Create">Thêm dịch vụ</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section" id="pets-from-backend">
+    <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2>Thú cưng đang chờ nhận nuôi</h2>
+            </div>
+        </div>
+        <div class="row">
+            @if (pets.Any())
+            {
+                @foreach (var pet in pets)
+                {
+                    var imageUrl = pet.PetImages.FirstOrDefault(x => x.IsPrimary)?.ImageUrl
+                        ?? pet.PetImages.FirstOrDefault()?.ImageUrl
+                        ?? Url.Content("~/LayoutPetcare/images/gallery-1.jpg");
+                    <div class="col-md-4 ftco-animate">
+                        <div class="work mb-4 img d-flex align-items-end" style="background-image: url('@imageUrl');">
+                            <div class="desc w-100 px-4">
+                                <div class="text w-100 mb-3">
+                                    <span>@pet.Species</span>
+                                    <h2><a asp-controller="Pets" asp-action="Details" asp-route-id="@pet.PetId">@pet.Name</a></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p>Chưa có thú cưng available trong database.</p>
+                    <a class="btn btn-primary" asp-controller="Pets" asp-action="Create">Thêm thú cưng</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
